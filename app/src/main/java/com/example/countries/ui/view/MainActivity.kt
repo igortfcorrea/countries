@@ -1,4 +1,4 @@
-package com.example.countries.view
+package com.example.countries.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,19 +7,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.countries.R
-import com.example.countries.viewmodel.ListViewModel
+import com.example.countries.model.CountriesService
+import com.example.countries.ui.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: ListViewModel
+    private val viewModel by viewModel<ListViewModel>()
     private val countriesAdapter = CountryListAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
            setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.refresh()
 
         countriesList.apply {
