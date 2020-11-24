@@ -13,7 +13,12 @@ class CountriesService {
         DaggerApiComponent.create().inject(this)
     }
 
-    fun getCountries(): Single<List<Country>> {
-        return api.getCountries()
+    suspend fun getCountries(): List<Country>? {
+        return try {
+            api.getCountries()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }
